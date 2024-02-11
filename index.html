@@ -47,6 +47,13 @@
         margin-right: 5px;
     }
     
+    .popup input[type="text"] {
+        width: 100%;
+        margin-top: 5px;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+    
     .popup input[type="submit"] {
         background-color: #ff5733;
         color: #fff;
@@ -66,8 +73,9 @@
             <label><input type="radio" name="reason" value="I_am_not_the_decision_maker_for_this"> I am not the decision maker for this</label>
             <label><input type="radio" name="reason" value="No_budgets_available_right_now "> No budgets available right now</label>
             <label><input type="radio" name="reason" value="We_don't_do_external_trainings/e-learnings"> We don’t do external trainings/e-learnings</label>
-	<label><input type="radio" name="reason" value="Not_exploring_new_partners_right_now"> Not exploring new partners right now</label>
-            <textarea name="other_reason" placeholder="Please specify"></textarea>
+            <label><input type="radio" name="reason" value="Not_exploring_new_partners_right_now"> Not exploring new partners right now</label>
+            <label><input type="radio" name="reason" value="Other" id="otherOption"> Other:</label>
+            <input type="text" name="customReason" id="customReason" placeholder="Please specify" disabled>
             <input type="submit" value="Unsubscribe">
         </form>
     </div>
@@ -79,6 +87,22 @@
     function showPopup() {
         document.getElementById("popupContainer").style.display = "block";
     }
+
+    var radioButtons = document.querySelectorAll('input[type="radio"][name="reason"]:not(#otherOption)');
+    radioButtons.forEach(function(radioButton) {
+        radioButton.addEventListener("change", function() {
+            if (this.checked) {
+                document.getElementById("customReason").disabled = true;
+            }
+        });
+    });
+
+    document.getElementById("otherOption").addEventListener("change", function() {
+        document.getElementById("customReason").disabled = !this.checked;
+        if (this.checked) {
+            document.getElementById("customReason").focus();
+        }
+    });
 </script>
 
 </body>
